@@ -8,30 +8,33 @@ using System.Windows.Forms;
 
 namespace Version_1_C
 {
-    public partial class frmPainting : Version_1_C.frmWork
+    public sealed partial class frmPainting : Version_1_C.frmWork
     {
 
-        public frmPainting()
+        private frmPainting()
         {
             InitializeComponent();
         }
+        private static readonly frmPainting _Instance = new frmPainting();
 
-        public void SetDetails(string prName, DateTime prDate, decimal prValue,
-                                       float prWidth, float prHeight, string prType)
+        public static frmPainting Instance => _Instance;
+
+        protected override void updateForm()
         {
-            base.SetDetails(prName, prDate, prValue);
-            txtWidth.Text = Convert.ToString(prWidth);
-            txtHeight.Text = Convert.ToString(prHeight);
-            txtType.Text = prType;
+            base.updateForm();
+            clsPainting lcWork = (clsPainting)_Work;
+            txtWidth.Text = lcWork.Width.ToString();
+            txtHeight.Text = lcWork.Height.ToString();
+            txtType.Text = lcWork.Type;
         }
 
-        public void GetDetails(ref string prName, ref DateTime prDate, ref decimal prValue,
-                                       ref float prWidth, ref float prHeight, ref string prType)
+        protected override void pushData()
         {
-            base.GetDetails(ref prName, ref prDate, ref prValue);
-            prWidth = Convert.ToSingle(txtWidth.Text);
-            prHeight = Convert.ToSingle(txtHeight.Text);
-            prType = txtType.Text;
+            base.pushData();
+            clsPainting lcWork = (clsPainting)_Work;
+            lcWork.Width = Single.Parse(txtWidth.Text);
+            lcWork.Height = Single.Parse(txtHeight.Text);
+            lcWork.Type = txtType.Text;
         }
     }
 }

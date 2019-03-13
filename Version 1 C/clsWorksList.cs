@@ -1,15 +1,19 @@
 using System;
-using System.Collections;
-using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace Version_1_C
 {
     [Serializable()] 
-    public class clsWorksList : ArrayList
+    public class clsWorksList : List<clsWork>
     {
-        private static clsNameComparer theNameComparer = new clsNameComparer();
-        private static clsDateComparer theDateComparer = new clsDateComparer();
-        
+        private static clsNameComparer _NameComparer = new clsNameComparer();
+        private static clsDateComparer _DateComparer = new clsDateComparer();
+        private static clsMsgBoxViewController _ShowMsg = new clsMsgBoxViewController();
+
+        private byte _SortOrder;
+
+        public byte SortOrder { get => _SortOrder; set => _SortOrder = value; }
+
         public void AddWork()
         {
             clsWork lcWork = clsWork.NewWork();
@@ -23,7 +27,7 @@ namespace Version_1_C
         {
             if (prIndex >= 0 && prIndex < this.Count)
             {
-                if (MessageBox.Show("Are you sure?", "Deleting work", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (_ShowMsg.YesNo("Are you sure?", "Deleting work") == true)
                 {
                     this.RemoveAt(prIndex);
                 }
@@ -39,7 +43,7 @@ namespace Version_1_C
             }
             else
             {
-                MessageBox.Show("Sorry no work selected #" + Convert.ToString(prIndex));
+                _ShowMsg.Notification("Sorry no work selected #" + Convert.ToString(prIndex));
             }
         }
 
@@ -48,19 +52,19 @@ namespace Version_1_C
             decimal lcTotal = 0;
             foreach (clsWork lcWork in this)
             {
-                lcTotal += lcWork.GetValue();
+                lcTotal += lcWork.Value;
             }
             return lcTotal;
         }
 
          public void SortByName()
          {
-             Sort(theNameComparer);
+             Sort(_NameComparer);
          }
     
         public void SortByDate()
         {
-            Sort(theDateComparer);
+            Sort(_DateComparer);
         }
     }
 }

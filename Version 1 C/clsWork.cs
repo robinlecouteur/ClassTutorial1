@@ -5,9 +5,13 @@ namespace Version_1_C
     [Serializable()] 
     public abstract class clsWork
     {
-        protected string _Name;
-        protected DateTime theDate = DateTime.Now;
-        protected decimal theValue;
+        private string name;
+        private DateTime date = DateTime.Now;
+        private decimal value;
+
+        public string Name { get => name; set => name = value; }
+        public DateTime Date { get => date; set => date = value; }
+        public decimal Value { get => value; set => this.value = value; }
 
         public clsWork()
         {
@@ -19,12 +23,12 @@ namespace Version_1_C
          public static clsWork NewWork()
          {
              char lcReply;
-             InputBox inputBox = new InputBox("Enter P for Painting, S for Sculpture and H for Photograph");
+             InputBox lcInputBox = new InputBox("Enter P for Painting, S for Sculpture and H for Photograph");
              //inputBox.ShowDialog();
              //if (inputBox.getAction() == true)
-             if (inputBox.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+             if (lcInputBox.ShowDialog() == System.Windows.Forms.DialogResult.OK)
              {
-                 lcReply = Convert.ToChar(inputBox.getAnswer());
+                 lcReply = Convert.ToChar(lcInputBox.GetAnswer());
 
                  switch (char.ToUpper(lcReply))
                  {
@@ -36,29 +40,14 @@ namespace Version_1_C
              }
              else
              {
-                 inputBox.Close();
+                 lcInputBox.Close();
                  return null;
              }
          }
 
         public override string ToString()
         {
-            return _Name + "\t" + theDate.ToShortDateString();  
-        }
-        
-        public string GetName()
-        {
-            return _Name;
-        }
-
-        public DateTime GetDate()
-        {
-            return theDate;
-        }
-
-        public decimal GetValue()
-        {
-            return theValue;
+            return Name + "\t" + Date.ToShortDateString();  
         }
     }
 }

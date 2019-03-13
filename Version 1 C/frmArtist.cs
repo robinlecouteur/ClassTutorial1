@@ -15,65 +15,55 @@ namespace Version_1_C
             InitializeComponent();
         }
 
-        private clsArtistList theArtistList;
-        private clsWorksList theWorksList;
-        private byte sortOrder; // 0 = Name, 1 = Date
+        private clsWorksList _WorksList;
+        //private byte _SortOrder; // 0 = Name, 1 = Date
+        private clsArtist _Artist;
 
-        private void UpdateDisplay()
+        private void updateDisplay()
         {
             txtName.Enabled = txtName.Text == "";
-            if (sortOrder == 0)
+            if (_WorksList.SortOrder == 0)
             {
-                theWorksList.SortByName();
+                _WorksList.SortByName();
                 rbByName.Checked = true;
             }
             else
             {
-                theWorksList.SortByDate();
+                _WorksList.SortByDate();
                 rbByDate.Checked = true;
             }
 
             lstWorks.DataSource = null;
-            lstWorks.DataSource = theWorksList;
-            lblTotal.Text = Convert.ToString(theWorksList.GetTotalValue());
+            lstWorks.DataSource = _WorksList;
+            lblTotal.Text = Convert.ToString(_WorksList.GetTotalValue());
         }
 
-        public void SetDetails(string prName, string prSpeciality, string prPhone, byte prSortOrder,
-                               clsWorksList prWorksList, clsArtistList prArtistList)
+        public void SetDetails(clsArtist prArtist)
         {
-            txtName.Text = prName;
-            txtSpeciality.Text = prSpeciality;
-            txtPhone.Text = prPhone;
-            theArtistList = prArtistList;
-            theWorksList = prWorksList;
-            sortOrder = prSortOrder;
-            UpdateDisplay();
-        }
-
-        public void GetDetails(ref string prName, ref string prSpeciality, ref string prPhone, ref byte prSortOrder)
-        {
-            prName = txtName.Text;
-            prSpeciality = txtSpeciality.Text;
-            prPhone = txtPhone.Text;
-            prSortOrder = sortOrder;
+            _Artist = prArtist;
+            updateForm();
+            updateDisplay();
+            updateDisplay();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            theWorksList.DeleteWork(lstWorks.SelectedIndex);
-            UpdateDisplay();
+            _WorksList.DeleteWork(lstWorks.SelectedIndex);
+            updateDisplay();
         }
+        
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            theWorksList.AddWork();
-            UpdateDisplay();
+            _WorksList.AddWork();
+            updateDisplay();
         }
 
         private void btnClose_Click(object sender, EventArgs e)
         {
             if (isValid())
             {
+                pushData();
                 DialogResult = DialogResult.OK;
             }
         }
@@ -81,7 +71,7 @@ namespace Version_1_C
         public virtual Boolean isValid()
         {
             if (txtName.Enabled && txtName.Text != "")
-                if (theArtistList.Contains(txtName.Text))
+                if (_Artist.IsDuplicate(txtName.Text))
                 {
                     MessageBox.Show("Artist with that name already exists!");
                     return false;
@@ -97,16 +87,33 @@ namespace Version_1_C
             int lcIndex = lstWorks.SelectedIndex;
             if (lcIndex >= 0)
             {
-                theWorksList.EditWork(lcIndex);
-                UpdateDisplay();
+                _WorksList.EditWork(lcIndex);
+                updateDisplay();
             }
         }
 
         private void rbByDate_CheckedChanged(object sender, EventArgs e)
         {
-            sortOrder = Convert.ToByte(rbByDate.Checked);
-            UpdateDisplay();
+            _WorksList.SortOrder = Convert.ToByte(rbByDate.Checked);
+            updateDisplay();
         }
 
+        private void updateForm()
+        {
+            txtName.Text = _Artist.Name;
+            txtPhone.Text = _Artist.Phone;
+            txtSpeciality.Text = _Artist.Speciality;
+            lblTotal.Text = _Artist.TotalValue.ToString();
+            _WorksList = _Artist.WorksList;
+
+
+        }
+
+        private void pushData()
+        {
+            _Artist.Name = txtName.Text;
+            _Artist.Phone = txtPhone.Text;
+            _Artist.Speciality = txtSpeciality.Text;
+        }
     }
 }
