@@ -44,19 +44,22 @@ namespace Version_1_C
             this.Label2 = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
             this.Label1 = new System.Windows.Forms.Label();
+            this.cboAddWork = new System.Windows.Forms.ComboBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.optSort.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblTotal
             // 
-            this.lblTotal.Location = new System.Drawing.Point(155, 233);
+            this.lblTotal.Location = new System.Drawing.Point(155, 228);
             this.lblTotal.Name = "lblTotal";
             this.lblTotal.Size = new System.Drawing.Size(72, 16);
             this.lblTotal.TabIndex = 27;
             // 
             // Label5
             // 
-            this.Label5.Location = new System.Drawing.Point(75, 233);
+            this.Label5.Location = new System.Drawing.Point(75, 228);
             this.Label5.Name = "Label5";
             this.Label5.Size = new System.Drawing.Size(64, 16);
             this.Label5.TabIndex = 26;
@@ -92,16 +95,16 @@ namespace Version_1_C
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(171, 257);
+            this.btnClose.Location = new System.Drawing.Point(193, 314);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(64, 32);
+            this.btnClose.Size = new System.Drawing.Size(64, 21);
             this.btnClose.TabIndex = 24;
             this.btnClose.Text = "Close";
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(91, 257);
+            this.btnDelete.Location = new System.Drawing.Point(193, 262);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(64, 32);
             this.btnDelete.TabIndex = 23;
@@ -110,7 +113,7 @@ namespace Version_1_C
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(11, 257);
+            this.btnAdd.Location = new System.Drawing.Point(6, 15);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(64, 32);
             this.btnAdd.TabIndex = 22;
@@ -178,17 +181,40 @@ namespace Version_1_C
             this.Label1.TabIndex = 14;
             this.Label1.Text = "Name";
             // 
+            // cboAddWork
+            // 
+            this.cboAddWork.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.cboAddWork.FormattingEnabled = true;
+            this.cboAddWork.IntegralHeight = false;
+            this.cboAddWork.ItemHeight = 13;
+            this.cboAddWork.Location = new System.Drawing.Point(74, 16);
+            this.cboAddWork.Name = "cboAddWork";
+            this.cboAddWork.Size = new System.Drawing.Size(95, 21);
+            this.cboAddWork.TabIndex = 28;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox1.Controls.Add(this.btnAdd);
+            this.groupBox1.Controls.Add(this.cboAddWork);
+            this.groupBox1.Location = new System.Drawing.Point(11, 247);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(176, 53);
+            this.groupBox1.TabIndex = 29;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Add Work";
+            // 
             // frmArtist
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(256, 299);
+            this.ClientSize = new System.Drawing.Size(263, 342);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lblTotal);
             this.Controls.Add(this.Label5);
             this.Controls.Add(this.optSort);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnDelete);
-            this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.Label4);
             this.Controls.Add(this.lstWorks);
             this.Controls.Add(this.txtPhone);
@@ -199,8 +225,8 @@ namespace Version_1_C
             this.Controls.Add(this.Label1);
             this.Name = "frmArtist";
             this.Text = "frmArtist";
-            //this.Load += new System.EventHandler(this.frmArtist_Load);
             this.optSort.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -224,5 +250,7 @@ namespace Version_1_C
         internal System.Windows.Forms.Label Label2;
         internal System.Windows.Forms.TextBox txtName;
         internal System.Windows.Forms.Label Label1;
+        private System.Windows.Forms.ComboBox cboAddWork;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }

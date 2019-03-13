@@ -35,6 +35,11 @@ namespace Version_1_C
             lcWork.Weight = Single.Parse(txtWeight.Text);
             lcWork.Material = txtMaterial.Text;
         }
+
+        public static void Run(clsSculpture prSculpture)
+        {
+            Instance.SetDetails(prSculpture);
+        }
     }
 }
 

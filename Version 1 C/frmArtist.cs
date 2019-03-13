@@ -13,6 +13,8 @@ namespace Version_1_C
         public frmArtist()
         {
             InitializeComponent();
+            cboAddWork.DataSource = clsWork.LstWorkType;
+            cboAddWork.SelectedIndex = 0;
         }
 
         private clsWorksList _WorksList;
@@ -43,7 +45,6 @@ namespace Version_1_C
             _Artist = prArtist;
             updateForm();
             updateDisplay();
-            updateDisplay();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -55,7 +56,7 @@ namespace Version_1_C
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            _WorksList.AddWork();
+            _WorksList.AddWork(cboAddWork.SelectedIndex);
             updateDisplay();
         }
 

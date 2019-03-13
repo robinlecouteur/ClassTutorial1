@@ -6,17 +6,15 @@ namespace Version_1_C
     [Serializable()] 
     public class clsWorksList : List<clsWork>
     {
-        private static clsNameComparer _NameComparer = new clsNameComparer();
-        private static clsDateComparer _DateComparer = new clsDateComparer();
         private static clsMsgBoxViewController _ShowMsg = new clsMsgBoxViewController();
 
         private byte _SortOrder;
 
         public byte SortOrder { get => _SortOrder; set => _SortOrder = value; }
 
-        public void AddWork()
+        public void AddWork(int prChoice)
         {
-            clsWork lcWork = clsWork.NewWork();
+            clsWork lcWork = clsWork.NewWork(prChoice);
             if (lcWork != null)
             {
                 Add(lcWork);
@@ -59,12 +57,12 @@ namespace Version_1_C
 
          public void SortByName()
          {
-             Sort(_NameComparer);
+             Sort(clsNameComparer.Instance);
          }
     
         public void SortByDate()
         {
-            Sort(_DateComparer);
+            Sort(clsDateComparer.Instance);
         }
     }
 }

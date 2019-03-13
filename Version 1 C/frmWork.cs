@@ -29,12 +29,14 @@ namespace Version_1_C
             if (isValid())
             {
                 DialogResult = DialogResult.OK;
+                pushData();
                 Close();
             }
         }
         private void btnCancel_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
+
             Close();
         }
         

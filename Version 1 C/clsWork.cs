@@ -5,13 +5,16 @@ namespace Version_1_C
     [Serializable()] 
     public abstract class clsWork
     {
-        private string name;
-        private DateTime date = DateTime.Now;
-        private decimal value;
+        private string _Name;
+        private DateTime _Date = DateTime.Now;
+        private decimal _Value;
+        private static string[] _LstWorkType = { "Painting", "Photograph", "Sculpture" };
 
-        public string Name { get => name; set => name = value; }
-        public DateTime Date { get => date; set => date = value; }
-        public decimal Value { get => value; set => this.value = value; }
+
+        public string Name { get => _Name; set => _Name = value; }
+        public DateTime Date { get => _Date; set => _Date = value; }
+        public decimal Value { get => _Value; set => this._Value = value; }
+        public static string[] LstWorkType { get => _LstWorkType; set => _LstWorkType = value; }
 
         public clsWork()
         {
@@ -19,31 +22,17 @@ namespace Version_1_C
         }
 
         public abstract void EditDetails();
-
-         public static clsWork NewWork()
-         {
-             char lcReply;
-             InputBox lcInputBox = new InputBox("Enter P for Painting, S for Sculpture and H for Photograph");
-             //inputBox.ShowDialog();
-             //if (inputBox.getAction() == true)
-             if (lcInputBox.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-             {
-                 lcReply = Convert.ToChar(lcInputBox.GetAnswer());
-
-                 switch (char.ToUpper(lcReply))
-                 {
-                     case 'P': return new clsPainting();
-                     case 'S': return new clsSculpture();
-                     case 'H': return new clsPhotograph();
-                     default: return null;
-                 }
-             }
-             else
-             {
-                 lcInputBox.Close();
-                 return null;
-             }
-         }
+        public static clsWork NewWork(int prChoice)
+        {
+            switch (prChoice)
+            {
+                case 0: return new clsPainting();
+                case 1: return new clsSculpture();
+                case 2: return new clsPhotograph();
+                default: return null;
+                
+            }
+        }
 
         public override string ToString()
         {
