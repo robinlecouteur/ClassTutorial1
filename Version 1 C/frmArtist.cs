@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 //using System.Collections;
 using System.ComponentModel;
 using System.Data;
@@ -20,10 +21,29 @@ namespace Version_1_C
         private clsWorksList _WorksList;
         //private byte _SortOrder; // 0 = Name, 1 = Date
         private clsArtist _Artist;
+        private static Dictionary<clsArtist, frmArtist> _ArtistFormList = new Dictionary<clsArtist, frmArtist>();
 
+
+        public static void Run(clsArtist prArtist)
+        {
+            frmArtist lcArtistForm;
+            if (!_ArtistFormList.TryGetValue(prArtist, out lcArtistForm))
+            {
+                lcArtistForm = new frmArtist();
+                _ArtistFormList.Add(prArtist, lcArtistForm);
+
+                lcArtistForm.Show();
+                lcArtistForm.SetDetails(prArtist);
+            }
+            else
+            {
+                lcArtistForm.Show();
+                lcArtistForm.Activate();
+            }
+        }
         private void updateDisplay()
         {
-            txtName.Enabled = txtName.Text == "";
+            txtName.Enabled = string.IsNullOrEmpty(_Artist.Name);
             if (_WorksList.SortOrder == 0)
             {
                 _WorksList.SortByName();
@@ -38,13 +58,19 @@ namespace Version_1_C
             lstWorks.DataSource = null;
             lstWorks.DataSource = _WorksList;
             lblTotal.Text = Convert.ToString(_WorksList.GetTotalValue());
+
+            frmMain.Instance.UpdateDisplay();
         }
 
         public void SetDetails(clsArtist prArtist)
         {
             _Artist = prArtist;
+
             updateForm();
             updateDisplay();
+
+            frmMain.Instance.GalleryNameChanged += new frmMain.Notify(updateTitle);
+            updateTitle(_Artist.ArtistList.GalleryName);
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -52,7 +78,7 @@ namespace Version_1_C
             _WorksList.DeleteWork(lstWorks.SelectedIndex);
             updateDisplay();
         }
-        
+
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
@@ -62,11 +88,25 @@ namespace Version_1_C
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            if (isValid())
-            {
-                pushData();
-                DialogResult = DialogResult.OK;
-            }
+            if (isValid() == true)
+                try
+                {
+                    pushData();
+                    if (txtName.Enabled)
+                    {
+                        _Artist.NewArtist();
+
+                        MessageBox.Show("Artist added!");
+                        frmMain.Instance.UpdateDisplay();
+                        txtName.Enabled = false;
+                    }
+                    Hide();
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
         }
 
         public virtual Boolean isValid()
@@ -115,6 +155,14 @@ namespace Version_1_C
             _Artist.Name = txtName.Text;
             _Artist.Phone = txtPhone.Text;
             _Artist.Speciality = txtSpeciality.Text;
+        }
+
+
+        private void updateTitle(string prGalleryName)
+        {
+            if (!string.IsNullOrEmpty(prGalleryName))
+
+                Text = "ArtistDetails - " + prGalleryName;
         }
     }
 }

@@ -71,6 +71,9 @@
     <Compile Include="clsSculpture.cs" />
     <Compile Include="clsWork.cs" />
     <Compile Include="clsWorksList.cs" />
+    <Compile Include="Controls\CueTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <!-- To fix Form Designer problem, copy and paste from here -->
     <Compile Include="frmArtist.cs">
       <SubType>Form</SubType>

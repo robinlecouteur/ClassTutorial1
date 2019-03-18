@@ -21,9 +21,19 @@ namespace Version_1_C
 
         private clsArtistList _ArtistList;
 
+
+        public delegate void Notify(string prGalleryName);
+        public event Notify GalleryNameChanged;
+
+        private void updateTitle(string prGalleryName)
+        {
+            if (!string.IsNullOrEmpty(prGalleryName))
+                Text = "Gallery - " + prGalleryName;
+        }
+
         internal static frmMain Instance => _Instance;
 
-        private void updateDisplay()
+        public void UpdateDisplay()
         {
             string[] lcDisplayList = new string[_ArtistList.Count];
 
@@ -35,8 +45,8 @@ namespace Version_1_C
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            _ArtistList.NewArtist();
-            updateDisplay();
+            frmArtist.Run(new clsArtist(_ArtistList));
+            UpdateDisplay();
         }
 
         private void lstArtists_DoubleClick(object sender, EventArgs e)
@@ -46,8 +56,8 @@ namespace Version_1_C
             lcKey = Convert.ToString(lstArtists.SelectedItem);
             if (lcKey != null)
             {
-                _ArtistList.EditArtist(lcKey);
-                updateDisplay();
+                frmArtist.Run(_ArtistList[lcKey]);
+                UpdateDisplay();
             }
         }
 
@@ -66,7 +76,7 @@ namespace Version_1_C
             {
                 lstArtists.ClearSelected();
                 _ArtistList.Remove(lcKey);
-                updateDisplay();
+                UpdateDisplay();
             }
         }
 
@@ -75,7 +85,15 @@ namespace Version_1_C
         private void frmMain_Load(object sender, EventArgs e)
         {
             _ArtistList = clsArtistList.Retrieve();
-            updateDisplay();
+            UpdateDisplay();
+            GalleryNameChanged += new Notify(updateTitle);
+            GalleryNameChanged(_ArtistList.GalleryName); // event raising!
+        }
+
+        private void btnChangeGalleryName_Click(object sender, EventArgs e)
+        {
+            _ArtistList.GalleryName = txtNewGalleryName.Text;
+            GalleryNameChanged(_ArtistList.GalleryName);
         }
     }
 }

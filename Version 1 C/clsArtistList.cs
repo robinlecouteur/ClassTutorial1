@@ -9,33 +9,10 @@ namespace Version_1_C
         private static clsMsgBoxViewController _ShowMsg = new clsMsgBoxViewController();
         private const string _FileName = "gallery1.xml";
 
-        public void EditArtist(string prKey)
-        {
-            clsArtist lcArtist;
-            lcArtist = this[prKey];
-            if (lcArtist != null)
-                lcArtist.EditDetails();
-            else
-                _ShowMsg.Notification("Sorry no artist by this name");
-        }
-       
-        public void NewArtist()
-        {
-            clsArtist lcArtist = new clsArtist(this);
-            try
-            {
-                if (lcArtist.Name != "")
-                {
-                    Add(lcArtist.Name, lcArtist);
-                    _ShowMsg.Notification("Artist added!");
-                }
-            }
-            catch (Exception)
-            {
-                _ShowMsg.Notification("Duplicate Key!");
-            }
-        }
-        
+        private string _GalleryName;
+        public string GalleryName { get => _GalleryName; set => _GalleryName = value; }
+
+
         public decimal GetTotalValue()
         {
             decimal lcTotal = 0;
@@ -45,8 +22,6 @@ namespace Version_1_C
             }
             return lcTotal;
         }
-
-
 
         public void Save()
         {

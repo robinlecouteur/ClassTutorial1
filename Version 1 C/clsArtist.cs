@@ -8,39 +8,41 @@ namespace Version_1_C
         private string _Name;
         private string _Speciality;
         private string _Phone;
-        
-        private decimal _TotalValue;
-
+       
         private clsWorksList _WorksList;
         private clsArtistList _ArtistList;
-        
-        private static frmArtist _ArtistDialog = new frmArtist();
+        private static clsMsgBoxViewController _ShowMsg = new clsMsgBoxViewController();
+
+
 
         public string Name { get => _Name; set => _Name = value; }
         public string Speciality { get => _Speciality; set => _Speciality = value; }
         public string Phone { get => _Phone; set => _Phone = value; }
-        public decimal TotalValue { get => _TotalValue;/* set => _TotalValue = value; */}
+        public decimal TotalValue { get => _WorksList.GetTotalValue();/* set => _TotalValue = value; */}
         public clsWorksList WorksList { get => _WorksList;/* set => _WorksList = value;*/ }
         public clsArtistList ArtistList { get => _ArtistList;/* set => _ArtistList = value;*/ }
         public clsArtist(clsArtistList prArtistList)
         {
             _WorksList = new clsWorksList();
             _ArtistList = prArtistList;
-            EditDetails();
         }
-        
-        public void EditDetails()
-        {
-            _ArtistDialog.SetDetails(this);
-            if (_ArtistDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                _TotalValue = WorksList.GetTotalValue();
-            }
-        }
-
         public bool IsDuplicate(string prArtistName)
         {
             return _ArtistList.ContainsKey(prArtistName);
+        }
+
+
+        public void NewArtist()
+        {
+            if (!string.IsNullOrEmpty(Name))
+            {
+                _ArtistList.Add(Name, this);
+            }
+            else
+            {
+                throw new Exception("No artist name entered");
+            }
+
         }
     }
 }
