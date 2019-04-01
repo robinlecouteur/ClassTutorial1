@@ -27,7 +27,7 @@ namespace Version_1_C
 
         public void Notification(string prText, string prCaption)
         {
-            MessageBox.Show(prText, prCaption);  
+            MessageBox.Show(prText, prCaption);
         }
     }
 }

@@ -27,8 +27,8 @@ namespace Version_1_C
             switch (prChoice)
             {
                 case 0: return new clsPainting();
-                case 1: return new clsSculpture();
-                case 2: return new clsPhotograph();
+                case 1: return new clsPhotograph();
+                case 2: return new clsSculpture();
                 default: return null;
                 
             }
