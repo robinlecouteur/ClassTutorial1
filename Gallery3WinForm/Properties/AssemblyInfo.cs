@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Gallery3Selfost")]
+[assembly: AssemblyTitle("Gallery3WinForm")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Gallery3Selfost")]
+[assembly: AssemblyProduct("Gallery3WinForm")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("0c87217b-102b-45e4-a7a6-4433febe3ff9")]
+[assembly: Guid("10887e3b-0406-417c-9871-7872fadad4fe")]
 
 // Version information for an assembly consists of the following four values:
 //
