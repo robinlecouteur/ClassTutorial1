@@ -38,7 +38,7 @@ namespace Gallery3WinForm
             try
             {
                 lstArtists.DataSource = null;
-                lstArtists.DataSource = await clsServiceClient.GetArtistNamesAsync();
+                lstArtists.DataSource = await ServiceClient.GetArtistNamesAsync();
             }
             catch (Exception)
             {
@@ -56,14 +56,17 @@ namespace Gallery3WinForm
 
         private void lstArtists_DoubleClick(object sender, EventArgs e)
         {
-            //string lcKey;
+            try
+            {
+                frmArtist.Run(lstArtists.SelectedItem as string);
+                UpdateDisplay();
+            }
+            catch (Exception)
+            {
 
-            //lcKey = Convert.ToString(lstArtists.SelectedItem);
-            //if (lcKey != null)
-            //{
-            //    frmArtist.Run(_ArtistList[lcKey]);
-            //    UpdateDisplay();
-            //}
+                MessageBox.Show("Error Opening Artist!");
+            }
+                
         }
 
         private void btnQuit_Click(object sender, EventArgs e)
