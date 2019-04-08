@@ -19,7 +19,7 @@ namespace Gallery3WinForm
         }
         private static readonly frmMain _Instance = new frmMain();
 
-       // private clsArtistList _ArtistList;
+        // private clsArtistList _ArtistList;
 
 
         public delegate void Notify(string prGalleryName);
@@ -58,15 +58,13 @@ namespace Gallery3WinForm
         {
             try
             {
-                frmArtist.Run(lstArtists.SelectedItem as string);
-                UpdateDisplay();
+                frmArtist.Run(lstArtists.SelectedItem as string);               
             }
             catch (Exception)
             {
 
                 MessageBox.Show("Error Opening Artist!");
             }
-                
         }
 
         private void btnQuit_Click(object sender, EventArgs e)

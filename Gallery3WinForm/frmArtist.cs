@@ -37,6 +37,7 @@ namespace Gallery3WinForm
                 {
                     _ArtistFormList.Add(prArtistName, lcArtistForm);
                     lcArtistForm.refreshFormFromDB(prArtistName);
+
                 }
             }
             else
@@ -75,13 +76,14 @@ namespace Gallery3WinForm
 
         public void SetDetails(clsArtist prArtist)
         {
-            //_Artist = prArtist;
+            _Artist = prArtist;
 
-            //updateForm();
-            //updateDisplay();
+            updateForm();
+            updateDisplay();
 
             //frmMain.Instance.GalleryNameChanged += new frmMain.Notify(updateTitle);
             //updateTitle(_Artist.ArtistList.GalleryName);
+            Show();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -99,25 +101,25 @@ namespace Gallery3WinForm
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            //if (isValid() == true)
-            //    try
-            //    {
-            //        pushData();
-            //        if (txtName.Enabled)
-            //        {
-            //            _Artist.NewArtist();
+            if (isValid() == true)
+                try
+                {
+                    pushData();
+                    //if (txtName.Enabled)
+                    //{
+                    //    _Artist.NewArtist();
 
-            //            MessageBox.Show("Artist added!");
-            //            frmMain.Instance.UpdateDisplay();
-            //            txtName.Enabled = false;
-            //        }
-            //        Hide();
+                    //    MessageBox.Show("Artist added!");
+                    //    frmMain.Instance.UpdateDisplay();
+                    //    txtName.Enabled = false;
+                    //}
+                    Hide();
 
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        MessageBox.Show(ex.Message);
-            //    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
         }
 
         public virtual Boolean isValid()
@@ -169,11 +171,11 @@ namespace Gallery3WinForm
         }
 
 
-        private void updateTitle(string prGalleryName)
-        {
-            if (!string.IsNullOrEmpty(prGalleryName))
+        //private void updateTitle(string prGalleryName)
+        //{
+        //    if (!string.IsNullOrEmpty(prGalleryName))
 
-                Text = "ArtistDetails - " + prGalleryName;
-        }
+        //        Text = "ArtistDetails - " + prGalleryName;
+        //}
     }
 }
